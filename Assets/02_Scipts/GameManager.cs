@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public int currentStage = 1;
+    public int currentStage = 2;
     public int maxStage = 3;
 
     public BoardManager boardManager;
@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     public int[] stageScore = { 5, 10, 20, 100 };
     public int[] stageTime = { 60, 120, 180 };
-    public int countdownTime;
+    
     int countMin;
     int countSec;
     public TextMeshProUGUI countdownDisplay;
@@ -23,24 +23,36 @@ public class GameManager : MonoBehaviour
     //public int goalScore;//스테이지마다 다르게
     void Update()
     {
-        boardManager = GameObject.Find("BoardManager").GetComponent<BoardManager>();
-        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-        //countdownDisplay = 
-        if (scoreManager.score >= stageScore[currentStage - 1])
+        
+        
+        if (scoreManager.score >= stageScore[currentStage - 1])//스테이키 점수 달성시.
         {
             NextStage();
-            stageTime[currentStage - 1] = stageTime[currentStage - 1 + 1];
+            
         }
     }
 
     void Awake()
     {
-        CountDown();
-        //boardManager = GameObject.Find("BoardManager").GetComponent<BoardManager>();
-        //scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-        DontDestroyOnLoad(this.gameObject); // 씬 전환해도 사라지지 않게
+        //DontDestroyOnLoad(this.gameObject);   //이거 버튼때문에 못씀.
+        
+        SceneManager.sceneLoaded += OnSceneLoaded;  // 씬이 바뀔 때 자동 호출
     }
 
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;  // 메모리 누수 방지
+    }
+
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        boardManager = GameObject.Find("BoardManager").GetComponent<BoardManager>();
+        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        countdownDisplay = GameObject.Find("TimeText").GetComponent<TextMeshProUGUI>();
+        CountDown();
+        // 타이머 새로 시작
+    }
     public void CountDown()
     {
         StartCoroutine(CountdownStart());
@@ -74,7 +86,7 @@ public class GameManager : MonoBehaviour
         }
         else
             SceneManager.LoadScene("0" + currentStage + "_Stage" + currentStage);
-
+        
     }
     void GotoIntro()    // 마지막 스테이지 클리어하면.
     {
@@ -82,6 +94,18 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("00_Intro");
     }
 
-
+    public void OnTogglePauseButton()
+    {
+        if (Time.timeScale == 0) //멈춰있으면
+        {
+            Time.timeScale = 1f; //시작
+            
+        }
+        else //움직이면
+        {
+            Time.timeScale = 0; //멈추기
+            
+        }
+    }
 
 }
