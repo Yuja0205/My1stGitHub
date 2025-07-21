@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,17 +20,15 @@ public class GameManager : MonoBehaviour
     int countMin;
     int countSec;
     public TextMeshProUGUI countdownDisplay;
-    //public panel
-    //public int goalScore;//스테이지마다 다르게
+
+    public GameObject gameoverPanel;
+
+    
     void Update()
     {
         
         
-        if (scoreManager.score >= stageScore[currentStage - 1])//스테이키 점수 달성시.
-        {
-            NextStage();
-            
-        }
+        
     }
 
     void Awake()
@@ -50,6 +49,12 @@ public class GameManager : MonoBehaviour
         boardManager = GameObject.Find("BoardManager").GetComponent<BoardManager>();
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         countdownDisplay = GameObject.Find("TimeText").GetComponent<TextMeshProUGUI>();
+
+        boardManager.InitBoardFromActiveTiles();
+        if (currentStage == 5)
+        {
+            return;
+        }
         CountDown();
         // 타이머 새로 시작
     }
@@ -60,9 +65,17 @@ public class GameManager : MonoBehaviour
 
     IEnumerator CountdownStart()
     {
-
-        while (stageTime[currentStage - 1] > 0)
+        //if (currentStage == 5)
+        //{
+        //    yield return 0;
+        //}
+        while (stageTime[currentStage - 1] >= 0)
         {
+            if (scoreManager.score >= stageScore[currentStage - 1])//스테이키 점수 달성시.
+            {
+                NextStage();
+
+            }
             countMin = stageTime[currentStage - 1] / 60;
             countSec = stageTime[currentStage - 1] % 60;
             string minText = countMin.ToString("D2");
@@ -72,8 +85,13 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(1f);
 
             stageTime[currentStage - 1]--;
+            
         }
+        
         //GameOver
+        StartCoroutine(twoSecond());
+        
+
     }
     void NextStage()    // 현재 스테이지 클리어하면.
     {
@@ -88,7 +106,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("0" + currentStage + "_Stage" + currentStage);
         
     }
-    void GotoIntro()    // 마지막 스테이지 클리어하면.
+    public void GotoIntro()    // 마지막 스테이지 클리어하면.
     {
 
         SceneManager.LoadScene("00_Intro");
@@ -106,6 +124,15 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0; //멈추기
             
         }
+    }
+
+    // Gameover표시 2초후, 씬 변경.
+    public IEnumerator twoSecond()
+    {
+        gameoverPanel.SetActive(true);
+        
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("04_Gameover");
     }
 
 }

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SpawnManager : MonoBehaviour
 {
+    public GameManager gamemanger;
     public GameObject panel;
     [SerializeField] private GameObject hGroupPrefab;                       // H_Group 프리펩
     [SerializeField] private GameObject vGroupPrefab;                       // V_Group 프리펩
@@ -72,7 +73,22 @@ public class SpawnManager : MonoBehaviour
         return new Vector2Int(x, y);
     }
 
-    
+
+    //public bool CanAnyGroupBePlaced()
+    //{
+    //    GameObject[] remainingGroups = GameObject.FindGameObjectsWithTag("BlockGroup");
+
+    //    foreach (var group in remainingGroups)
+    //    {
+    //        DragDrop2D dragDrop = group.GetComponent<DragDrop2D>();
+    //        if (dragDrop != null && dragDrop.CanBePlacedOnBoard())
+    //        {
+    //            return true; // 하나라도 놓을 수 있다면 게임 진행 가능
+    //        }
+    //    }
+
+    //    return false; // 아무것도 못 놓음 → 게임오버
+    //}
     public bool CanAnyGroupBePlaced()
     {
         GameObject[] remainingGroups = GameObject.FindGameObjectsWithTag("BlockGroup");
@@ -80,13 +96,55 @@ public class SpawnManager : MonoBehaviour
         foreach (var group in remainingGroups)
         {
             DragDrop2D dragDrop = group.GetComponent<DragDrop2D>();
-            if (dragDrop != null && dragDrop.CanBePlacedOnBoard())
+            if (dragDrop != null)
             {
-                return true; // 하나라도 놓을 수 있다면 게임 진행 가능
+                int width = boardManager.width;
+                int height = boardManager.height;
+
+                for (int x = 0; x < width; x++)
+                {
+                    for (int y = 0; y < height; y++)
+                    {
+                        bool canPlace = true;
+
+                        if (dragDrop.isHorizontal)
+                        {
+                            if (x > width - 3) continue;
+
+                            for (int i = 0; i < 3; i++)
+                            {
+                                // *** 비활성화된 타일 체크 ***
+                                if (!boardManager.IsTileActive(x + i, y) ||
+                                    boardManager.GetBlock(x + i, y) != null)
+                                {
+                                    canPlace = false;
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (y > height - 3) continue;
+
+                            for (int i = 0; i < 3; i++)
+                            {
+                                // *** 비활성화된 타일 체크 ***
+                                if (!boardManager.IsTileActive(x, y + i) ||
+                                    boardManager.GetBlock(x, y + i) != null)
+                                {
+                                    canPlace = false;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (canPlace) return true; // 한 군데라도 가능하면 게임 계속
+                    }
+                }
             }
         }
 
-        return false; // 아무것도 못 놓음 → 게임오버
+        return false; // 아무 그룹도 못 놓으면 게임오버
     }
     IEnumerator DelayedGameOverCheck()
     {
@@ -97,9 +155,10 @@ public class SpawnManager : MonoBehaviour
         if (!CanAnyGroupBePlaced())
         {
             Debug.Log("게임오버");
-            panel.SetActive(true);
-            //targetObject.SetActive(true);
-            // UI 표시 등 처리
+            //panel.SetActive(true);
+            
+            gamemanger.StartCoroutine(gamemanger.twoSecond());
+            
         }
     }
 

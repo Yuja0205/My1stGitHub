@@ -7045,6 +7045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e44f92049ab9394681f18e39881dd6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamemanger: {fileID: 2021643711}
   panel: {fileID: 564308106}
   hGroupPrefab: {fileID: 556873230849279656, guid: b4d9e082e7d70904abca95af24c8b952, type: 3}
   vGroupPrefab: {fileID: 7370289789934580696, guid: 23e953219fd5cee4cbe0c4b320ab7542, type: 3}
@@ -14047,6 +14048,7 @@ MonoBehaviour:
   stageScore: 050000000a00000014000000e7030000
   stageTime: 3c00000078000000b4000000
   countdownDisplay: {fileID: 0}
+  gameoverPanel: {fileID: 564308106}
 --- !u!4 &2021643712
 Transform:
   m_ObjectHideFlags: 0

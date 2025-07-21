@@ -188,6 +188,16 @@ public class DragDrop2D : MonoBehaviour
 
                     for (int i = 0; i < 3; i++)
                     {
+                        if (!boardManager.IsTileActive(x + i, y))
+                        {
+                            canPlace = false;
+                            break;
+                        }
+                        if (boardManager.GetBlock(x + i, y) != null)
+                        {
+                            canPlace = false;
+                            break;
+                        }
                         GameObject block = boardManager.GetBlock(x + i, y);
                         if (block != null)
                         {
@@ -209,6 +219,16 @@ public class DragDrop2D : MonoBehaviour
 
                     for (int i = 0; i < 3; i++)
                     {
+                        if (!boardManager.IsTileActive(x + i, y))
+                        {
+                            canPlace = false;
+                            break;
+                        }
+                        if (boardManager.GetBlock(x + i, y) != null)
+                        {
+                            canPlace = false;
+                            break;
+                        }
                         GameObject block = boardManager.GetBlock(x, y + i);
                         if (block != null)
                         {

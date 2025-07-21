@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class BoardManager : MonoBehaviour
 {
+    public ParticleSystem myParticleSystem;
     public ScoreManager scoreMgr;
     public GameObject[] specialBlockPrefab;
     
@@ -12,14 +14,19 @@ public class BoardManager : MonoBehaviour
     public int width = 9;
     public int height = 10;
     public GameObject[,] board; //블록이 놓인 위치를 저장하는 2차원 배열
+    public bool[,] activeTiles; // 활성화된 타일 정보 (스테이지별)
 
     public float destroyDelay = 0.2f;
 
     void Start()
     {
         board = new GameObject[width, height]; // board 배열 초기화
-        
-        
+
+        activeTiles = new bool[width, height];
+        for (int x = 0; x < width; x++)
+            for (int y = 0; y < height; y++)
+                activeTiles[x, y] = true;
+
     }
 
     // 매치 확인
@@ -193,19 +200,17 @@ public class BoardManager : MonoBehaviour
     Vector2Int? FindRandomAvailablePosition()
     {
         List<Vector2Int> available = new List<Vector2Int>();
-
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                if (board[x, y] == null)
+                if (board[x, y] == null && IsTileActive(x, y)) // 활성화된 타일만 허용
+                {
                     available.Add(new Vector2Int(x, y));
+                }
             }
         }
-
-        if (available.Count == 0)
-            return null;
-
+        if (available.Count == 0) return null;
         return available[Random.Range(0, available.Count)];
     }
     public void DestroyBlock(int x, int y)
@@ -215,8 +220,42 @@ public class BoardManager : MonoBehaviour
         {
             SetBlock(x, y, null);
             Destroy(block);
+            
+            
             scoreMgr.AddScore();  //  이 한 줄로 점수 일관 처리
+
         }
     }
 
+    public void InitBoardFromActiveTiles()
+    {
+        if (board == null || board.Length == 0)
+        {
+            board = new GameObject[width, height];
+        }
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                Vector3 worldPos = BoardToWorldPos(new Vector2Int(x, y));
+                Collider2D tileCollider = Physics2D.OverlapPoint(worldPos);
+
+                if (tileCollider != null && tileCollider.gameObject.activeSelf)
+                {
+                    continue; // 사용 가능 타일
+                }
+                else
+                {
+                    board[x, y] = null; // 사용 불가
+                }
+            }
+        }
+    }
+    public bool IsTileActive(int x, int y)
+    {
+        Vector3 worldPos = BoardToWorldPos(new Vector2Int(x, y));
+        Collider2D tileCollider = Physics2D.OverlapPoint(worldPos);
+        return (tileCollider != null && tileCollider.gameObject.activeSelf);
+    }
 }
