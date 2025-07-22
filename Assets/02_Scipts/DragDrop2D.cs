@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class DragDrop2D : MonoBehaviour
 {
+    
+    
     public Transform leftBlock;
     public Transform middleBlock;
     public Transform rightBlock;
@@ -14,6 +16,8 @@ public class DragDrop2D : MonoBehaviour
 
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private BoardManager boardManager;
+    
+    
 
     private Vector3 spawnPosition;
     private float size = 0.7f;  // 하단블럭의 사이즈
@@ -39,8 +43,9 @@ public class DragDrop2D : MonoBehaviour
 
     //마우스 클릭 시, 드래그 시작
     //마우스 위치와 오브젝트 사이 거리 저장(위로 살짝 띄우기)
-    void OnMouseDown()
+    public void OnMouseDown()
     {
+        
         transform.localScale = new Vector3(1, 1, 1);
         offset = transform.position - MouseWorldPosition() +new Vector3(0f, 2f, 0f);
     }

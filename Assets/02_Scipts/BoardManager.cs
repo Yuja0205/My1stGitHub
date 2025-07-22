@@ -6,7 +6,7 @@ using static UnityEngine.ParticleSystem;
 
 public class BoardManager : MonoBehaviour
 {
-    public ParticleSystem myParticleSystem;
+    public GameObject destroyParticlePrefab;
     public ScoreManager scoreMgr;
     public GameObject[] specialBlockPrefab;
     
@@ -218,10 +218,13 @@ public class BoardManager : MonoBehaviour
         GameObject block = GetBlock(x, y);
         if (block != null)
         {
+            Vector3 worldPos = BoardToWorldPos(new Vector2Int(x, y));
             SetBlock(x, y, null);
             Destroy(block);
-            
-            
+
+            GameObject particle = Instantiate(destroyParticlePrefab, worldPos, Quaternion.identity);
+            Destroy(particle, 1.5f);
+
             scoreMgr.AddScore();  //  이 한 줄로 점수 일관 처리
 
         }
