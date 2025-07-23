@@ -10348,6 +10348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87f7ffa378e819c4fbf14b9e96356cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyParticlePrefab: {fileID: 1797533001936024735, guid: 3cf6adb62e290b14399e6dea189d4ac8, type: 3}
   scoreMgr: {fileID: 1237363302}
   specialBlockPrefab:
   - {fileID: 5090630281400389722, guid: 30f1e5305b033c044b2e6cc2b72b4526, type: 3}
