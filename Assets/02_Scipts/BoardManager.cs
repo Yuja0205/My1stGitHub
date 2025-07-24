@@ -107,6 +107,7 @@ public class BoardManager : MonoBehaviour
     {
         //  먼저 주변 특수블럭 검사
         TriggerNearbySpecialBlocks(matched);
+        
         int randomIndex = Random.Range(0, specialBlockPrefab.Length);
         GameObject randomSpecial = specialBlockPrefab[randomIndex];
         //  특수블럭 생성 조건

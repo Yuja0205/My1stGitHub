@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject gameoverPanel;
 
+    public TextMeshProUGUI stageText;
     
     void Update()
     {
@@ -46,9 +47,12 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        StopAllCoroutines();
         boardManager = GameObject.Find("BoardManager").GetComponent<BoardManager>();
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         countdownDisplay = GameObject.Find("TimeText").GetComponent<TextMeshProUGUI>();
+
+        stageText.text = $"STAGE{currentStage}";
 
         boardManager.InitBoardFromActiveTiles();
         if (currentStage == 5)
