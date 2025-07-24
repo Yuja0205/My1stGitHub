@@ -132,7 +132,10 @@ public class DragDrop2D : MonoBehaviour
                     block.SetParent(null);
                     block.gameObject.AddComponent<BoxCollider2D>(); //  충돌 가능하게
 
+
+
                     Vector2Int boardPos = boardManager.WorldToBoardPos(block.position);
+                    Debug.Log($"드롭된 블럭 {block.name} 등록 위치: {boardPos}");
                     boardManager.SetBlock(boardPos.x, boardPos.y, block.gameObject);
                 }
                 boardManager.CheckMatches();    //매치확인.

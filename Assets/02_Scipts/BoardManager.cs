@@ -102,41 +102,76 @@ public class BoardManager : MonoBehaviour
     }
 
 
-    //매치된 블럭 제거
     IEnumerator DestroyMatched(List<Vector2Int> matched)
     {
-        //  먼저 주변 특수블럭 검사
+        // 1) 먼저 매치된 블럭들 좌표를 캐싱하고 삭제
+        foreach (var pos in matched)
+        {
+            DestroyBlock(pos.x, pos.y);
+            yield return new WaitForSeconds(destroyDelay);
+        }
+
+        // 2) 삭제 후, 주변 특수블럭 트리거 검사 (이제 보드 상태 안정적)
         TriggerNearbySpecialBlocks(matched);
-        
-        int randomIndex = Random.Range(0, specialBlockPrefab.Length);
-        GameObject randomSpecial = specialBlockPrefab[randomIndex];
-        //  특수블럭 생성 조건
+
+        // 3) 특수블럭 생성 (5개 이상 매치 시)
         if (matched.Count >= 5)
         {
             Vector2Int? spawnPos = FindRandomAvailablePosition();
             if (spawnPos.HasValue)
             {
-                Vector3 world = BoardToWorldPos(spawnPos.Value);
-                GameObject sp = Instantiate(randomSpecial, world, Quaternion.identity);
+                int randomIndex = Random.Range(0, specialBlockPrefab.Length);
+                GameObject sp = Instantiate(specialBlockPrefab[randomIndex], BoardToWorldPos(spawnPos.Value), Quaternion.identity);
                 if (sp.name.Contains("(Clone)"))
                 {
                     int cloneIndex = sp.name.IndexOf("(Clone)");
                     sp.name = sp.name.Substring(0, cloneIndex);
                 }
+
                 board[spawnPos.Value.x, spawnPos.Value.y] = sp;
             }
         }
-
-        foreach (var pos in matched)
-        {
-            DestroyBlock(pos.x, pos.y); //  동일한 함수로 점수 처리
-            yield return new WaitForSeconds(destroyDelay);
-        }
-
-        
     }
 
 
+    //void TriggerNearbySpecialBlocks(List<Vector2Int> matched)
+    //{
+    //    HashSet<Vector2Int> triggered = new HashSet<Vector2Int>();
+
+    //    foreach (var pos in matched)
+    //    {
+    //        int[] dx = { 1, -1, 0, 0 };
+    //        int[] dy = { 0, 0, 1, -1 };
+
+    //        for (int i = 0; i < 4; i++)
+    //        {
+    //            int nx = pos.x + dx[i];
+    //            int ny = pos.y + dy[i];
+
+    //            if (IsInsideBoard(nx, ny))
+    //            {
+    //                Vector2Int neighborPos = new Vector2Int(nx, ny);
+    //                if (triggered.Contains(neighborPos)) continue;
+
+    //                GameObject neighbor = board[nx, ny];
+    //                if (neighbor != null)
+    //                {
+    //                    SpecialBlock sp = neighbor.GetComponent<SpecialBlock>();
+    //                    if (sp != null && sp.name == "DragonEye")
+    //                    {
+    //                        sp.TriggerEffect(this);
+    //                        triggered.Add(neighborPos);
+    //                    }
+    //                    else if (sp != null && sp.name == "UnicornHorn")
+    //                    {
+    //                        sp.TriggerEffect2(this);
+    //                        triggered.Add(neighborPos);
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
     void TriggerNearbySpecialBlocks(List<Vector2Int> matched)
     {
         HashSet<Vector2Int> triggered = new HashSet<Vector2Int>();
@@ -151,16 +186,18 @@ public class BoardManager : MonoBehaviour
                 int nx = pos.x + dx[i];
                 int ny = pos.y + dy[i];
 
-                if (IsInsideBoard(nx, ny))
-                {
-                    Vector2Int neighborPos = new Vector2Int(nx, ny);
-                    if (triggered.Contains(neighborPos)) continue;
+                if (!IsInsideBoard(nx, ny)) continue;
 
-                    GameObject neighbor = board[nx, ny];
-                    if (neighbor != null)
+                Vector2Int neighborPos = new Vector2Int(nx, ny);
+                if (triggered.Contains(neighborPos) || matched.Contains(neighborPos)) continue;
+
+                GameObject neighbor = board[nx, ny];
+                if (neighbor != null)
+                {
+                    SpecialBlock sp = neighbor.GetComponent<SpecialBlock>();
+                    if (sp != null)
                     {
-                        SpecialBlock sp = neighbor.GetComponent<SpecialBlock>();
-                        if (sp!=null&&sp.name == "DragonEye")
+                        if (sp != null && sp.name == "DragonEye")
                         {
                             sp.TriggerEffect(this);
                             triggered.Add(neighborPos);
