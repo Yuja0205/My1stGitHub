@@ -11,15 +11,13 @@ GameObject:
   - component: {fileID: 2378030911476657348}
   - component: {fileID: 6129651096761804546}
   - component: {fileID: 1802841303358907829}
-  - component: {fileID: 4897501666958896794}
-  - component: {fileID: 6276084027100796912}
   m_Layer: 6
   m_Name: OutLine
   m_TagString: DropArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2378030911476657348
 Transform:
   m_ObjectHideFlags: 0
@@ -132,38 +130,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4897501666958896794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3213532232665371830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd9fe90b989b8a243ace39c834febf95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colorSprite:
-  - {fileID: 21300000, guid: 73be31b43671a48419b4262ad1d3a869, type: 3}
-  - {fileID: 21300000, guid: aedb725fc2a139d4ba1384d06a0badd6, type: 3}
-  - {fileID: 21300000, guid: 1fb82d9783c752c45b2a08cb9ca490bd, type: 3}
-  - {fileID: 21300000, guid: e442f0de696f2f244acb118d31a4194b, type: 3}
-  - {fileID: 21300000, guid: e39febd05ac08a54e89646a92cbbdc7e, type: 3}
-  - {fileID: 21300000, guid: f00e6b5227a418e4caf4277a5a268391, type: 3}
-  randColor: 
---- !u!114 &6276084027100796912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3213532232665371830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69c1922313c8e2848a622a08fb50baed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7654886327440685865
 GameObject:
   m_ObjectHideFlags: 0
