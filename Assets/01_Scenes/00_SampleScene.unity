@@ -3096,6 +3096,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gamemanager: {fileID: 660698991}
   scoreText: {fileID: 1835500217}
+  bestscoreText: {fileID: 35057591}
   endScore: {fileID: 29168712}
   score: 0
 --- !u!4 &172388320
@@ -3301,7 +3302,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 72a54b85d55363b41934c6b146cbdc2c, type: 3}
     m_FontSize: 80
     m_FontStyle: 1
     m_BestFit: 0
@@ -7188,7 +7189,7 @@ GameObject:
   - component: {fileID: 823641125}
   - component: {fileID: 823641124}
   m_Layer: 5
-  m_Name: BestText
+  m_Name: endBestText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7528,7 +7529,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &845056856
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14671,7 +14672,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 72a54b85d55363b41934c6b146cbdc2c, type: 3}
     m_FontSize: 80
     m_FontStyle: 1
     m_BestFit: 0
