@@ -47,6 +47,11 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Time.timeScale = 0;
+        if (currentStage == 5)
+        {
+            Time.timeScale = 1;
+        }
         StopAllCoroutines();
         boardManager = GameObject.Find("BoardManager").GetComponent<BoardManager>();
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
