@@ -8,6 +8,7 @@ public class ScoreManager : MonoBehaviour
 {
     public GameManager gamemanager;
     public Text scoreText;
+    public Text endScore;
 
     public int score;
 
@@ -31,14 +32,18 @@ public class ScoreManager : MonoBehaviour
         if (gamemanager.currentStage == 5)
         {
             scoreText.text = $"{score}";
+            endScore.text = $"{score}";
+
         }
         else if (gamemanager.currentStage == 99)
         {
             scoreText.text = $"{score}";
+            endScore.text = $"{score}";
         }
         else
         {
             scoreText.text = $"{score} / {gamemanager.stageScore[gamemanager.currentStage - 1]}";
+            endScore.text = $"{score} / {gamemanager.stageScore[gamemanager.currentStage - 1]}";
         }
     }
     

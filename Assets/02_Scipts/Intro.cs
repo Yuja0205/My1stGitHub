@@ -13,6 +13,10 @@ public class Intro : MonoBehaviour
 
         
     //}
+    public void GoMain()
+    {
+        SceneManager.LoadScene("00_Intro");
+    }
     public void GoClassic()
     {
         SceneManager.LoadScene("00_SampleScene");

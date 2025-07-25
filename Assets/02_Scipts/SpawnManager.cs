@@ -156,9 +156,10 @@ public class SpawnManager : MonoBehaviour
         {
             Debug.Log("게임오버");
             //panel.SetActive(true);
-            
-            gamemanger.StartCoroutine(gamemanger.twoSecond());
-            
+
+            //gamemanger.StartCoroutine(gamemanger.twoSecond());
+            gamemanger.gameoverPanel.SetActive(true);
+
         }
     }
 

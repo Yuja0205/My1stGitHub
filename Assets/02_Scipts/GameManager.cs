@@ -96,10 +96,11 @@ public class GameManager : MonoBehaviour
             stageTime[currentStage - 1]--;
             
         }
-        
+
         //GameOver
-        StartCoroutine(twoSecond());
-        
+        //StartCoroutine(twoSecond());
+        gameoverPanel.SetActive(true);
+
 
     }
     void NextStage()    // 현재 스테이지 클리어하면.
