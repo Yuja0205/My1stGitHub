@@ -2,9 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Intro : MonoBehaviour
 {
+    public GameObject text;
+    //void Awake()
+    //{
+    //    text.SetActive(true);
+
+        
+    //}
     public void GoClassic()
     {
         SceneManager.LoadScene("00_SampleScene");

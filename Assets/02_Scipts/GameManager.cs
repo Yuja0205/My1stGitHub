@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Time.timeScale = 0;
-        if (currentStage == 5)
+        if (currentStage == 5||currentStage==99)
         {
             Time.timeScale = 1;
         }
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
         stageText.text = $"STAGE{currentStage}";
 
         boardManager.InitBoardFromActiveTiles();
-        if (currentStage == 5)
+        if (currentStage == 5||currentStage == 99)
         {
             return;
         }

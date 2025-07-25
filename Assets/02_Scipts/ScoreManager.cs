@@ -32,6 +32,10 @@ public class ScoreManager : MonoBehaviour
         {
             scoreText.text = $"{score}";
         }
+        else if (gamemanager.currentStage == 99)
+        {
+            scoreText.text = $"{score}";
+        }
         else
         {
             scoreText.text = $"{score} / {gamemanager.stageScore[gamemanager.currentStage - 1]}";

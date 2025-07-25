@@ -8887,7 +8887,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2021643711}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: GotoIntro
         m_Mode: 1
@@ -14935,7 +14935,7 @@ MonoBehaviour:
   boardManager: {fileID: 1573340703}
   scoreManager: {fileID: 357821713}
   stageScore: 050000000a00000014000000e7030000
-  stageTime: 3c00000078000000b4000000
+  stageTime: 3c0000007800000005000000
   countdownDisplay: {fileID: 0}
   gameoverPanel: {fileID: 1203210651}
   stageText: {fileID: 251617134}
@@ -15049,7 +15049,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2021643711}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: OnTogglePauseButton
         m_Mode: 1

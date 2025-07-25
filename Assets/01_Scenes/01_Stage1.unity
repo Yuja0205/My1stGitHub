@@ -2592,7 +2592,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1697400545}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: GotoIntro
         m_Mode: 1
