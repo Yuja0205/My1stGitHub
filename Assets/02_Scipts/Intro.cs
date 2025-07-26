@@ -6,12 +6,16 @@ using UnityEngine.UI;
 
 public class Intro : MonoBehaviour
 {
+    public SoundManager soundMgr;
     public GameObject text;
     //void Awake()
     //{
     //    text.SetActive(true);
 
-        
+    private void Start()
+    {
+        soundMgr.IntroSound();
+    }
     //}
     public void GoMain()
     {

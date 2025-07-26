@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class SpawnManager : MonoBehaviour
 {
+    public SoundManager soundMgr;
     public GameManager gamemanger;
     public GameObject panel;
     [SerializeField] private GameObject hGroupPrefab;                       // H_Group ÇÁ¸®Æé
@@ -159,6 +160,7 @@ public class SpawnManager : MonoBehaviour
 
             //gamemanger.StartCoroutine(gamemanger.twoSecond());
             gamemanger.gameoverPanel.SetActive(true);
+            soundMgr.GameoverSound();
 
         }
     }

@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class SpecialBlock : MonoBehaviour
 {
+    public SoundManager soundMgr;
+    private void Start()
+    {
+        soundMgr = FindObjectOfType<SoundManager>();
+    }
     public void TriggerEffect(BoardManager board)
     {
         Vector2Int pos = board.WorldToBoardPos(transform.position);
@@ -22,7 +27,9 @@ public class SpecialBlock : MonoBehaviour
             board.DestroyBlock(pos.x, y);
         }
 
+        soundMgr.SpecialSound();
         board.DestroyBlock(pos.x, pos.y); // 切奄 切重
+        
     }
     public void TriggerEffect2(BoardManager board)
     {
@@ -44,6 +51,7 @@ public class SpecialBlock : MonoBehaviour
             }
         }
 
+        soundMgr.SpecialSound();
 
         board.DestroyBlock(pos.x, pos.y); // 切奄 切重
     }

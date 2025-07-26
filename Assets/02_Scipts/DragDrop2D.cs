@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DragDrop2D : MonoBehaviour
 {
-    
+    public SoundManager soundMgr;
     
     public Transform leftBlock;
     public Transform middleBlock;
@@ -34,6 +34,7 @@ public class DragDrop2D : MonoBehaviour
     {
         spawnManager = FindObjectOfType<SpawnManager>();
         boardManager = FindObjectOfType<BoardManager>();
+        soundMgr = FindObjectOfType<SoundManager>();
     }
 
     public void SetSpawnPosition(Vector3 position)
@@ -145,12 +146,14 @@ public class DragDrop2D : MonoBehaviour
                     spawnManager.OnGroupDropped();
 
                 Debug.Log("블럭 DropArea에 떨어짐");
+                soundMgr.DropSound();
             }
             else
             {
                 transform.localScale = new Vector3(size, size, size);
                 transform.position = spawnPosition;
                 Debug.Log("모든블럭이 DropArea에 있지않음.");
+                soundMgr.MissDropSound();
             }
         }
         else
@@ -158,6 +161,8 @@ public class DragDrop2D : MonoBehaviour
             transform.localScale = new Vector3(size, size, size);
             transform.position = spawnPosition;
             Debug.Log("어따놓냐");
+            soundMgr.MissDropSound();
+
         }
 
         collider2d.enabled = true;
