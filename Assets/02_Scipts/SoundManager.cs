@@ -44,4 +44,22 @@ public class SoundManager : MonoBehaviour
     {
         Intro.Play();
     }
+    public void SoundStop()
+    {
+        Drop.mute = true;
+        MissDrop.mute = true;
+        Match.mute = true;
+        Special.mute = true;
+        Gameover.mute = true;
+        Intro.mute = true;
+    }
+    public void SoundStart()
+    {
+        Drop.mute = false;
+        MissDrop.mute = false;
+        Match.mute = false;
+        Special.mute = false;
+        Gameover.mute = false;
+        Intro.mute = false;
+    }
 }
