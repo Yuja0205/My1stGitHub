@@ -10,6 +10,7 @@ public class ScoreManager : MonoBehaviour
     public Text scoreText;
     public Text bestscoreText;
     public Text endScore;
+    public Text endBestScore;
 
     public int score;//점수숫자표시
     string key = "bestScore"; // 오타방지
@@ -29,14 +30,16 @@ public class ScoreManager : MonoBehaviour
     {
         if (gamemanager.currentStage == 5)
         {
+
             // 최고 점수가 있다면
             if (PlayerPrefs.HasKey(key))
             {
                 // 최고 점수 가져오기
                 int best = PlayerPrefs.GetInt(key);
+                endBestScore.text = $"{best}";
                 // 최고 점수 < 현재 점수
                 if (best < score)
-                {
+                {endBestScore.text = $"{best}";
                     // 현재 점수를 최고 점수에 저장한다.
                     PlayerPrefs.SetInt(key, score);
                     bestscoreText.text = score.ToString(); // 현재 점수가 최고 점수이니까 time 값을 넣어도 됨
@@ -52,6 +55,7 @@ public class ScoreManager : MonoBehaviour
                 PlayerPrefs.SetInt(key, score);
                 bestscoreText.text = score.ToString();
             }
+            
         }
     
         
@@ -65,6 +69,7 @@ public class ScoreManager : MonoBehaviour
         {
             scoreText.text = $"{score}";
             endScore.text = $"{score}";
+            //endBestScore.text = $"{}"
 
         }
         else if (gamemanager.currentStage == 99)

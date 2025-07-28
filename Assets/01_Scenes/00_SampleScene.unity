@@ -3186,6 +3186,7 @@ MonoBehaviour:
   scoreText: {fileID: 1835500217}
   bestscoreText: {fileID: 35057591}
   endScore: {fileID: 29168712}
+  endBestScore: {fileID: 823641124}
   score: 0
 --- !u!4 &172388320
 Transform:
@@ -7404,7 +7405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &770314319
 RectTransform:
   m_ObjectHideFlags: 0
