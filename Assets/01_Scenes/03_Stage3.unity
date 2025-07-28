@@ -2811,6 +2811,7 @@ MonoBehaviour:
   scoreText: {fileID: 802514133}
   bestscoreText: {fileID: 1859169809}
   endScore: {fileID: 1472739970}
+  endBestScore: {fileID: 0}
   score: 0
 --- !u!4 &357821714
 Transform:
@@ -17169,6 +17170,7 @@ MonoBehaviour:
   maxStage: 3
   boardManager: {fileID: 1573340703}
   scoreManager: {fileID: 357821713}
+  soundMgr: {fileID: 671465555}
   stageScore: 050000000a00000014000000e7030000
   stageTime: 3c00000078000000b4000000
   countdownDisplay: {fileID: 0}

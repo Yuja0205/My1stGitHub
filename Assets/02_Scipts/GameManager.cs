@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     public BoardManager boardManager;
     public ScoreManager scoreManager;
-
+    public SoundManager soundMgr;
     public int[] stageScore = { 5, 10, 20, 100 };
     public int[] stageTime = { 60, 120, 180 };
     
@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
         //GameOver
         //StartCoroutine(twoSecond());
         gameoverPanel.SetActive(true);
-
+        soundMgr.GameoverSound();
 
     }
     void NextStage()    // 현재 스테이지 클리어하면.
